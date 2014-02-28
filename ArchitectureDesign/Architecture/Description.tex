@@ -1,0 +1,49 @@
+\section{Description}
+The action description defines all the necessary information that are required to generate emotive action and personalize the system. This system is divided into parts: general, which described the information to generate the emotive actions. And Theatre, which describes the script and the current character that should be portrayed by the robot.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Simple Actions}
+The simple actions are actions that have specialized modules that execute them. At the moment the current actions are:
+\begin{itemize}
+	\item $Move(finalposition,velocity,angularPosition)$
+	\item $OscillateMove(velocity,maximumAngle)$ the oscillation movement just implies movement in the angular velocity, thus is just change in the $\theta$ component, and $maximumAngel\in[\pi,-\pi)$
+	\item $RotateTorso(angle,velocity)$ which moves the upper part of the waist, if there is one.
+	\item $OscillateTorso(velocity,maximumAngle)$ which enable the oscillation of the upper part of the waist.
+	\item $Grasp(object)$
+	\item $RotateHead(angle\theta,angle\beta,angle\omega,velocity\theta,velocity\beta,velocity\omega)$
+	\item $OscillateHead(angelID,velocity,angle)$ where\\ $angleID\in \lbrace angle\theta,angle\beta,angle\omega \rbrace$
+	\item $RorateShoulder(IDShoulder,angle\theta,angle\beta,velocity\theta,velocity\beta)$
+	\item $OscillateShoulder(IDShoulder,angleID,velocity,maximumAngle)$ where\\ $IDShoulder\in (\forall x| x=shoulder\bigwedge x\in robot)$
+\end{itemize} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Abstract Action}
+The abstract actions are actions that could be composed by other abstract actions and simple actions. The composition of these action could use any kind of time or other kind of constrains for their synchronization, or even composition of them. However the first implementation will be simple as possible, which means that the composition of the actions will in parallel and started at the same time.\\
+The abstract action $BalanceArms(velocity,maximumAngle)$ could be decompose as:
+$OscillateShoulder(IDShoulder_1,angleID_1,velocity,maximumAngle)$ and $OscillateShoulder(IDShoulder_2,angleID_1,-velocity,maximumAngle)$
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Action Profile}
+The action profiles describes the simple abstract actions that people have created based on the simple actions that are available in the system. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Emotion Profile}
+The emotions profiles are based on the research done during the first year, where we come up with some basic features that enable the emotion projection. Example:
+\begin{verbatim}
+<emotion id="happiness">
+    <simpleAction id="Move">
+		<parameter id="velocity">fast</parameter>    
+    </simpleAction>
+    <simpleAction id="OscillateMove">
+        <parameter id="velocity">fast</parameter>
+        <parameter id="maximumAngel">small</parameter>
+    </simpleAction>
+    <simpleAction id="BalanceArms">
+        <parameter id="maximumAngle">medium</parameter>    
+    </simpleAction>
+    <simpleAction id="OscillateTorso">
+        <parameter id="velocity">-fast</parameter>
+        <parameter id="maximumAngel">small</parameter>
+    </simpleAction>
+</emotion>
+\end{verbatim}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Script descriptor}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Character descriptor}
